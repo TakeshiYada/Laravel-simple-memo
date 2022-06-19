@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    @yield('javascript')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,6 +19,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+    <link href="/css/layout.css" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">
@@ -75,13 +79,34 @@
             </div>
         </nav>
 
-
-        <main class="py-4">
+        <main class="">
             <div class="row">
-                <div class="col-md-2">左カラム</div>
-                <div class="col-md-4">中央カラム</div>
-                <div class="col-md-6">
-                    右カラム
+                <div class="col-sm-12 col-md-2 p-0">
+                    <div class="card">
+                        <div class="card-header">タグ一覧</div>
+                        <div class="card-body my-card-body">
+                        <a href="/" class="card-text d-block mb-2">すべて表示</a>
+
+                    @foreach($tags as $tag)
+                        <a href="/?tag={{ $tag['id'] }}" class="card-text d-block ellipsis mb-2">{{ $tag['name'] }}</a>
+                    @endforeach
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4 p-0">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">メモ一覧 <a href="{{ route('home') }}"> <i class="fas fa-plus-circle"></i> </a> </div>
+                        <div class="card-body my-card-body">
+
+                    @foreach($memos as $memo)
+                        <a href="/edit/{{ $memo['id'] }}" class="card-text d-block ellipsis mb-2">{{ $memo['content'] }}</a>
+                    @endforeach
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 p-0">
                     @yield('content')
                 </div>
             </div>
